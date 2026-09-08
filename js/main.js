@@ -1,4 +1,19 @@
 (() => {
+  const FINAL_TITLE = "NGD_CRM_Landing";
+
+  const forceTitle = () => {
+    const titleTag = document.querySelector("title");
+    if (titleTag) titleTag.textContent = FINAL_TITLE;
+    document.title = FINAL_TITLE;
+
+    [
+      document.querySelector('meta[property="og:title"]'),
+      document.querySelector('meta[name="twitter:title"]'),
+    ].forEach((metaTag) => {
+      if (metaTag) metaTag.setAttribute("content", FINAL_TITLE);
+    });
+  };
+
   const replaceCopy = (value) => {
     if (!value || typeof value !== "string") return value;
     return value
@@ -23,6 +38,8 @@
   };
 
   const normalizeLabels = () => {
+    forceTitle();
+
     const updatedTitle = replaceCopy(document.title);
     if (updatedTitle !== document.title) document.title = updatedTitle;
 
@@ -96,7 +113,13 @@
   };
 
   normalizePage();
-  new MutationObserver(normalizePage).observe(document.body, {
+  forceTitle();
+  setTimeout(forceTitle, 200);
+  setTimeout(forceTitle, 800);
+  new MutationObserver(() => {
+    normalizePage();
+    forceTitle();
+  }).observe(document.body, {
     childList: true,
     subtree: true,
     characterData: true,
