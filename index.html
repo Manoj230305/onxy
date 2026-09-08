@@ -704,6 +704,7 @@
     <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
     <meta name="robots" content="max-image-preview:large">
     <link rel="canonical" href="index.html">
+    <link rel="stylesheet" href="./css/styles.css">
 
     <style data-framer-breakpoint-css>
         @media(min-width: 1200px) {
@@ -1283,15 +1284,6 @@
             justify-content: center;
             height: 100%;
             width: 100%;
-        }
-
-        .ngd-footer-logo {
-            font-size: 28px;
-            color: #ffffff;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            height: 100%;
         }
 
         .framer-U53iY .framer-1a12ues {
@@ -22103,7 +22095,6 @@
                                 </div>
                                 <div class="framer-o3e9cv" data-framer-name="Logo &amp; Copywrite">
                                     <div class="framer-bdky9i" data-framer-name="Logo">
-                                        <span class="ngd-text-logo ngd-footer-logo">NGD</span>
                                     </div>
                                     <div class="framer-a7boez" data-framer-component-type="RichTextContainer"
                                         style="--framer-link-text-color:rgb(0, 153, 255);--framer-link-text-decoration:underline;transform:none">
@@ -22377,7 +22368,6 @@
                                 </div>
                                 <div class="framer-o3e9cv" data-framer-name="Logo &amp; Copywrite">
                                     <div class="framer-bdky9i" data-framer-name="Logo">
-                                        <span class="ngd-text-logo ngd-footer-logo">NGD</span>
                                     </div>
                                     <div class="framer-a7boez" data-framer-component-type="RichTextContainer"
                                         style="--framer-link-text-color:rgb(0, 153, 255);--framer-link-text-decoration:underline;transform:none">
@@ -22650,7 +22640,6 @@
                                 </div>
                                 <div class="framer-o3e9cv" data-framer-name="Logo &amp; Copywrite">
                                     <div class="framer-bdky9i" data-framer-name="Logo">
-                                        <span class="ngd-text-logo ngd-footer-logo">NGD</span>
                                     </div>
                                     <div class="framer-a7boez" data-framer-component-type="RichTextContainer"
                                         style="--framer-link-text-color:rgb(0, 153, 255);--framer-link-text-decoration:underline;transform:none">
@@ -22831,23 +22820,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <link rel="modulepreload" fetchpriority="low"
         href="https://framerusercontent.com/sites/6d31OnxxDCW751MsLzIfQK/react.BUqsy_vI.mjs">
     <link rel="modulepreload" fetchpriority="low"
@@ -22942,146 +22914,7 @@
     </div>
     <!-- Start of bodyEnd -->
 
-    <script>
-        (() => {
-            const replaceCopy = (value) => {
-                if (!value || typeof value !== "string") return value;
-                return value
-                    .replace(/\bAlly\b/g, "NGD")
-                    .replace(/Buy this Template/gi, "Try Demo")
-                    .replace(/Join Waitlist/gi, "Join us");
-            };
-            const normalizeText = (root) => {
-                const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-                const nodes = [];
-                let node;
-                while ((node = walker.nextNode())) nodes.push(node);
-                nodes.forEach((textNode) => {
-                    const updated = replaceCopy(textNode.nodeValue);
-                    if (updated !== textNode.nodeValue) textNode.nodeValue = updated;
-                });
-            };
-            const normalizeLabels = () => {
-                const updatedTitle = replaceCopy(document.title);
-                if (updatedTitle !== document.title) document.title = updatedTitle;
-                document.querySelectorAll("[aria-label], [alt], [title]").forEach((element) => {
-                    ["aria-label", "alt", "title"].forEach((attribute) => {
-                        if (element.hasAttribute(attribute)) {
-                            const value = element.getAttribute(attribute);
-                            const updated = replaceCopy(value);
-                            if (updated !== value) element.setAttribute(attribute, updated);
-                        }
-                    });
-                });
-            };
-            const replaceLogos = () => {
-                // 1. Navigation Logo
-                document.querySelectorAll('a[data-framer-name="Logo"], .framer-1h4drck').forEach((link) => {
-                    const existing = link.querySelector('.ngd-nav-logo');
-                    if (!existing || link.querySelector('img')) {
-                        link.innerHTML = '<span class="ngd-text-logo ngd-nav-logo">NGD</span>';
-                    }
-                });
-
-                // 2. Comparison Section Logo
-                document.querySelectorAll('.framer-1p4q33z, .framer-tkwnsc').forEach((comp) => {
-                    const existing = comp.querySelector('.ngd-comparison-logo');
-                    if (!existing || comp.querySelector('img')) {
-                        comp.innerHTML = '<span class="ngd-text-logo ngd-comparison-logo">NGD</span>';
-                    }
-                });
-
-                // 3. Footer Logo
-                document.querySelectorAll('.framer-bdky9i, footer [data-framer-name="Logo"]').forEach((footerLogo) => {
-                    const existing = footerLogo.querySelector('.ngd-footer-logo');
-                    if (!existing || footerLogo.querySelector('img')) {
-                        footerLogo.innerHTML = '<span class="ngd-text-logo ngd-footer-logo">NGD</span>';
-                    }
-                });
-
-                // 4. Fallback: Catch any remaining Ally logo images across the page
-                document.querySelectorAll('img[src*="kDCm12kIw9RRyNFBAQEzgkRcY"], img[src*="sPIsQodCKRqQoJqL2e407V0h1BA504d"], img[src*="ally.png"]').forEach((img) => {
-                    const container = img.closest('[data-framer-name="Logo"]') || img.parentElement;
-                    if (container && (!container.querySelector('.ngd-text-logo') || container.querySelector('img'))) {
-                        const isFooter = container.closest('footer') || container.classList.contains('framer-bdky9i');
-                        const isNav = container.closest('nav') || container.classList.contains('framer-1h4drck');
-                        const cls = isFooter ? 'ngd-footer-logo' : (isNav ? 'ngd-nav-logo' : 'ngd-comparison-logo');
-                        container.innerHTML = `<span class="ngd-text-logo ${cls}">NGD</span>`;
-                    }
-                });
-            };
-            const normalizePage = () => {
-                normalizeText(document.body);
-                normalizeLabels();
-                replaceLogos();
-                document.querySelectorAll('.framer-a6rm50-container').forEach((el) => el.remove());
-            };
-            normalizePage();
-            new MutationObserver(normalizePage).observe(document.body, { childList: true, subtree: true, characterData: true });
-
-            // Intercept all button and link clicks to reload the same page instead of navigating away
-            const shouldReload = (target) => {
-                const btn = target.closest('button, input[type="submit"], input[type="button"], a, [role="button"]');
-                if (!btn) return false;
-
-                // 1. Native button or submit input
-                if (btn.tagName === 'BUTTON' || (btn.tagName === 'INPUT' && (btn.type === 'submit' || btn.type === 'button'))) {
-                    return true;
-                }
-
-                // 2. Any CTA button in the landing page (Try Demo, Join us, Get Started, 14-day trial, etc.)
-                if (
-                    btn.classList.contains('framer-CLOpI') ||
-                    btn.dataset.framerName === 'Nav' ||
-                    btn.dataset.framerName === 'Secondary Nav' ||
-                    btn.dataset.framerName === 'Large' ||
-                    btn.getAttribute('role') === 'button'
-                ) {
-                    return true;
-                }
-
-                // 3. Any element inside the footer (social icon buttons, Product, Company, Blog, FAQs, Privacy Policy, Terms & Condition)
-                if (btn.closest('footer') || btn.closest('.framer-bsqkdh') || btn.closest('.framer-o3e9cv') || btn.closest('.framer-xmojnd')) {
-                    return true;
-                }
-
-                // 4. Any link pointing to external sites or other pages (waitlist.html, terms-conditions.html, blog.html, lemonsqueezy, etc.)
-                const href = btn.getAttribute('href') || '';
-                if (
-                    href.includes('waitlist.html') ||
-                    href.includes('terms-conditions.html') ||
-                    href.includes('privacy-policy.html') ||
-                    href.includes('blog.html') ||
-                    href.startsWith('http://') ||
-                    href.startsWith('https://')
-                ) {
-                    return true;
-                }
-
-                return false;
-            };
-
-            const handleReloadClick = (e) => {
-                if (shouldReload(e.target)) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    window.location.reload();
-                }
-            };
-
-            // Capture phase listener ensures it executes before Framer/React handlers
-            window.addEventListener('click', handleReloadClick, true);
-
-            // Also handle form submissions (e.g. newsletter subscribe form)
-            document.addEventListener('submit', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                window.location.reload();
-            }, true);
-        })();
-    </script>
+    <script src="./js/main.js"></script>
 
     <!-- End of bodyEnd -->
 </body>
