@@ -3,6 +3,8 @@
     if (!value || typeof value !== "string") return value;
     return value
       .replace(/\bAlly\b/g, "NGD")
+      .replace(/\bJosh Klein\b/gi, "MANOJ")
+      .replace(/\bManoj\b/g, "MANOJ")
       .replace(/Buy this Template/gi, "Try Demo")
       .replace(/Join Waitlist/gi, "Join us");
   };
@@ -32,16 +34,39 @@
     });
   };
 
+  const normalizeProfiles = () => {
+    const profileMappings = [
+      ["Ahmed Rahman", "Sanjay", "Product Manager"],
+      ["Sophia Bennett", "DL", "Team Lead"],
+      ["Hana Suzuki", "Jemi", "Creative Lead"],
+      ["Leo Davis", "Vj", "Project Manager"],
+    ];
+
+    document.querySelectorAll('[data-framer-name="Profile"]').forEach((profile) => {
+      const nameBlock = profile.querySelector('[data-framer-name="Name"]');
+      if (!nameBlock) return;
+      const paragraphs = nameBlock.querySelectorAll("p");
+      if (paragraphs.length < 2) return;
+
+      const mapping = profileMappings.find(([currentName]) => paragraphs[0].textContent.trim() === currentName);
+      if (!mapping) return;
+      paragraphs[0].textContent = mapping[1];
+      paragraphs[1].textContent = mapping[2];
+    });
+  };
+
+  const logoMarkup = (className) => `<img class="ngd-logo-image ${className}" src="assets/images/logo.png" alt="NGD" loading="eager">`;
+
   const replaceLogos = () => {
     document.querySelectorAll('a[data-framer-name="Logo"], .framer-1h4drck').forEach((link) => {
-      if (!link.querySelector(".ngd-nav-logo") || link.querySelector("img")) {
-        link.innerHTML = '<span class="ngd-text-logo ngd-nav-logo">NGD</span>';
+      if (!link.querySelector(".ngd-logo-image")) {
+        link.innerHTML = logoMarkup("ngd-nav-logo");
       }
     });
 
     document.querySelectorAll(".framer-1p4q33z, .framer-tkwnsc").forEach((comparison) => {
-      if (!comparison.querySelector(".ngd-comparison-logo") || comparison.querySelector("img")) {
-        comparison.innerHTML = '<span class="ngd-text-logo ngd-comparison-logo">NGD</span>';
+      if (!comparison.querySelector(".ngd-logo-image")) {
+        comparison.innerHTML = logoMarkup("ngd-comparison-logo");
       }
     });
 
@@ -49,17 +74,18 @@
       'img[src*="kDCm12kIw9RRyNFBAQEzgkRcY"], img[src*="sPIsQodCKRqQoJqL2e407V0h1BA504d"], img[src*="ally.png"]',
     ).forEach((image) => {
       const container = image.closest('[data-framer-name="Logo"]') || image.parentElement;
-      if (!container || (container.querySelector(".ngd-text-logo") && !container.querySelector("img"))) return;
+      if (!container || container.querySelector(".ngd-logo-image")) return;
       if (container.closest("footer")) return;
       const isNav = container.closest("nav") || container.classList.contains("framer-1h4drck");
       const logoClass = isNav ? "ngd-nav-logo" : "ngd-comparison-logo";
-      container.innerHTML = `<span class="ngd-text-logo ${logoClass}">NGD</span>`;
+      container.innerHTML = logoMarkup(logoClass);
     });
   };
 
   const normalizePage = () => {
     normalizeText(document.body);
     normalizeLabels();
+    normalizeProfiles();
     replaceLogos();
     document.querySelectorAll('footer img[alt="Logo"], footer img[src*="sPIsQodCKRqQoJqL2e407V0h1BA504d"]').forEach((image) => {
       (image.closest('[data-framer-background-image-wrapper="true"]') || image).remove();
