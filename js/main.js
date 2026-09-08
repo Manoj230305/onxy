@@ -5,6 +5,8 @@
       .replace(/\bAlly\b/g, "NGD")
       .replace(/\bJosh Klein\b/gi, "MANOJ")
       .replace(/\bManoj\b/g, "MANOJ")
+      .replace(/support@ally\.com/gi, "billingnexgendev@gmail.com")
+      .replace(/\+1 408 000 0000/g, "+91 9080795657")
       .replace(/Buy this Template/gi, "Try Demo")
       .replace(/Join Waitlist/gi, "Join us");
   };
